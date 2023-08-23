@@ -7,10 +7,11 @@ const { v4: uuid } = require('uuid');
 app.use(express.json());
 
 const pool = new Pool({
-    host: 'localhost',
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
+    ssl: true,
     port: 5432
 });
 
@@ -128,6 +129,11 @@ async function startServer() {
             res.status(500).json({ error: 'Internal server error' });
         }
     });
+
+    app.get('/ping', async (req, res) => {
+        const result = await pool.query('SELECT NOW()')
+        return res.json(result.rows[0])
+    })
 
     const server = app.listen(5000, () => {
         console.log('Server started on port 5000');
