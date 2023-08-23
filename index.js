@@ -5,7 +5,7 @@ const { Pool } = require('pg');
 const { v4: uuid } = require('uuid');
 const cors = require('cors');
 
-const allowedOrigins = ['https://ronanfilloy.github.io', 'http://localhost:3000'];
+const allowedOrigins = ['https://ronanfilloy.github.io', 'http://localhost:3000', 'https://keep-server-x6uo.onrender.com'];
 const corsOptions = {
     origin: (origin, callback) => {
         if (allowedOrigins.includes(origin)) {
