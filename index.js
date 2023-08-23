@@ -3,6 +3,20 @@ const app = express();
 require('dotenv').config();
 const { Pool } = require('pg');
 const { v4: uuid } = require('uuid');
+const cors = require('cors');
+
+const allowedOrigins = ['https://keep-client.github.io', 'http://localhost:3000'];
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
